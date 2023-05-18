@@ -35,6 +35,7 @@ const Nav = () => {
         <Image
           alt='Promptopia Logo'
           src='/assets/images/logo.svg'
+          // src='/assets/images/conceptopia.png'
           width={30}
           height={30}
           className='object-contain'
