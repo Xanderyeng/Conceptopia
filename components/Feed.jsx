@@ -23,21 +23,73 @@ const PromptCardList = ({ data, handleTagClick }) => {
 const Feed = () => {
   const [searchText, setSearchText] = useState("");
   const [posts, setPosts] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchTimeout, setSearchTimeout] = useState(null);
+  // const [searchedResults, setSearchedResults] = useState([]);
 
-  const handleSearchChange = (e) => {
-    setSearchText(e.target.value);
+  const filteredData = (searchText) => {
+    const regex = new RegExp(searchText, "i");
+    return posts.filter((result) => regex.test(result.prompt));
   };
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const response = await fetch("/api/prompt");
-      const data = await response.json();
-      setPosts(data);
-    };
+  console.log(filteredData);
 
-    fetchPosts();
+  // HANDLING TEXT SEARCH IN THE POSTS
+
+  const handleSearchChange = (e) => {
+    // setSearchText(e.target.value);
+    clearTimeout(searchTimeout);
+    setSearchText(e.target.value);
+
+    // debounce method
+    setSearchTimeout(
+      setTimeout(() => {
+        const searchResult = filterPrompts(e.target.value);
+        setSearchResults(searchResult);
+      }, 500)
+    );
+  };
+
+  console.log(searchText);
+
+  // HANDLING TAG SEARCHING
+
+  const handleTagClick = (tagName) => {
+    setSearchText(tagName);
+
+    const searchResult = filterPrompts(tagName);
+    setSearchResults(searchResult);
+  };
+  //  TO CLEAR THE SEARCH BAR
+
+  const handleClearSearch = () => {
+    setSearchText("");
+    setSearchResults([]);
+  };
+
+  const fetchPosts = async () => {
+    const response = await fetch("/api/prompt");
+    const data = await response.json();
     console.log(posts);
+
+    setPosts(data);
+  };
+
+  // fetchPosts();
+  // console.log(posts);
+  useEffect(() => {
+    fetchPosts();
   }, []);
+
+  const filterPrompts = (searchtext) => {
+    const regex = new RegExp(searchtext, "i"); // Adding the 'i' flag for case-insensitive search
+    return posts.filter(
+      (item) =>
+        regex.test(item.creator.username) ||
+        regex.test(item.tag) ||
+        regex.test(item.prompt)
+    );
+  };
 
   return (
     <section className='feed'>
@@ -50,9 +102,27 @@ const Feed = () => {
           required
           className='search_input peer'
         />
+
+        {searchText && (
+          <button
+            type='button'
+            className='relative search_clear_button'
+            onClick={handleClearSearch}
+          >
+            X
+          </button>
+        )}
       </form>
 
-      <PromptCardList data={posts} handleTagClick={() => {}} />
+      {/* All Results / Posts */}
+
+      {searchText ? (
+        <PromptCardList data={searchResults} handleTagClick={handleTagClick} />
+      ) : (
+        <PromptCardList data={posts} handleTagClick={handleTagClick} />
+      )}
+
+      {/* <PromptCardList data={posts} handleTagClick={() => {}} /> */}
     </section>
   );
 };

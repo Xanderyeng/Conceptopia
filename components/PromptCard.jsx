@@ -55,7 +55,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
       </div>
       <p className='my-4 font-satoshi text-sm text-gray-700'>{post.prompt}</p>
       <p
-        className='font-inter text-sm blue_gradient'
+        className='font-inter text-sm blue_gradient cursor-pointer'
         // Ensure that the tag exists and if its there, it can be clicked
         onClick={() => handleTagClick && handleTagClick(post.tag)}
       >
@@ -64,7 +64,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
       {session?.user.id === post.creator._id && pathName === "/profile" && (
         <div className="font-inter mt-5 flex-center gap-4 border-t border-gray-600 pt-3">
           <p
-            className=' font-semibold text-sm green_gradient cursor-pointer'
+            className=' font-semibold text-sm green_gradient cursor-pointer hover:text-amber-600'
             onClick={handleEdit}
           >
             Edit
