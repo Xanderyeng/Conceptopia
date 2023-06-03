@@ -14,13 +14,13 @@ const RootLayout = ({ children }) => {
     <html lang='en'>
       <head>
         <link rel='icon' href='/assets/images/logo.svg' />
-        <script
+        <Script
           src='https://cdn.lr-ingest.com/LogRocket.min.js'
           crossorigin='anonymous'
-        ></script>
-        <script>
+        ></Script>
+        <Script>
           window.LogRocket && window.LogRocket.init('xzch8a/conceptopia');
-        </script>
+        </Script>
       </head>
       <body>
         <Provider>
