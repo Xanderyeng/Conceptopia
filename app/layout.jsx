@@ -2,8 +2,7 @@ import React from "react";
 import "@styles/globals.css";
 import Provider from "@components/Provider";
 import Nav from "@components/Nav";
-import LogRocket from 'logrocket';
-LogRocket.init('xzch8a/conceptopia');
+import Script from "next/script";
 
 export const metadata = {
   title: "Conceptopia",
@@ -13,8 +12,15 @@ export const metadata = {
 const RootLayout = ({ children }) => {
   return (
     <html lang='en'>
-     <head>
+      <head>
         <link rel='icon' href='/assets/images/logo.svg' />
+        <script
+          src='https://cdn.lr-ingest.com/LogRocket.min.js'
+          crossorigin='anonymous'
+        ></script>
+        <script>
+          window.LogRocket && window.LogRocket.init('xzch8a/conceptopia');
+        </script>
       </head>
       <body>
         <Provider>
