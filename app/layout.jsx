@@ -2,6 +2,8 @@ import React from "react";
 import "@styles/globals.css";
 import Provider from "@components/Provider";
 import Nav from "@components/Nav";
+import LogRocket from 'logrocket';
+LogRocket.init('xzch8a/conceptopia');
 
 export const metadata = {
   title: "Conceptopia",
