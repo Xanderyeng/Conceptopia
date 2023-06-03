@@ -32,7 +32,7 @@ const Feed = () => {
     return posts.filter((result) => regex.test(result.prompt));
   };
 
-  console.log(filteredData);
+  // console.log(filteredData);
 
   // HANDLING TEXT SEARCH IN THE POSTS
 
@@ -50,7 +50,7 @@ const Feed = () => {
     );
   };
 
-  console.log(searchText);
+  // console.log(searchText);
 
   // HANDLING TAG SEARCHING
 
